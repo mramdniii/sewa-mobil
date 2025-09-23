@@ -7,7 +7,8 @@
                 <div class="flex justify-between mb-4 rounded-t sm:mb-5">
                     <div class="text-lg text-gray-900 md:text-xl dark:text-white">
                         <h3 class="font-semibold ">
-                            {{ $order->user->name }}
+                            {{ $order->user->name }} <span class="font-light text-lg text-gray-500">| {{ $order->user->email }} | {{ $order->phone_number }}</span>
+                            <dd class="my-1 text-sm font-light text-gray-800 sm:mb-1 dark:text-gray-400">{{ $order->address }}</dd>
                         </h3>
                         <p class="font-bold">
                             Rp. {{ number_format($order->total_price), 0, ',', ',' }}
@@ -21,8 +22,12 @@
                     </div>
                 </div>
                 <dl>
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Details</dt>
-                    <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">Standard glass ,3.8GHz 8-core 10th-generation Intel Core i7 processor, Turbo Boost up to 5.0GHz, 16GB 2666MHz DDR4 memory, Radeon Pro 5500 XT with 8GB of GDDR6 memory, 256GB SSD storage, Gigabit Ethernet, Magic Mouse 2, Magic Keyboard - US.</dd>
+                    <div class="bg-gray-300 p-2 rounded-lg mb-4">
+                    <dt class="mb-2 font-semibold text-lg text-black dark:text-white">Detail Pesanan</dt>
+                        <dd class="mb-4 font-light text-gray-800 sm:mb-1 dark:text-gray-400">{{ $order->product->name }}</dd>
+                        <dd class="mb-4 font-light text-gray-800 sm:mb-3 dark:text-gray-400">{{ \Carbon\Carbon::parse($order->start_date)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($order->end_date)->translatedFormat('d M Y') }}</dd>
+                        
+                    </div>
                     <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Category</dt>
                     <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">Electronics/PC</dd>
                 </dl>
