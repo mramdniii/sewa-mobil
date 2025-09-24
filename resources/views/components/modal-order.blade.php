@@ -7,7 +7,7 @@
                 <div class="flex justify-between mb-4 rounded-t sm:mb-5">
                     <div class="text-lg text-gray-900 md:text-xl dark:text-white">
                         <h3 class="font-semibold ">
-                            {{ $order->user->name }} <span class="font-light text-lg text-gray-500">| {{ $order->user->email }} | {{ $order->phone_number }}</span>
+                            {{ $order->name }} <span class="font-light text-lg text-gray-500">| {{ $order->email }} | {{ $order->phone_number }}</span>
                             <dd class="my-1 text-sm font-light text-gray-800 sm:mb-1 dark:text-gray-400">{{ $order->address }}</dd>
                         </h3>
                         <p class="font-bold">
@@ -24,7 +24,7 @@
                 <dl>
                     <div class="bg-gray-300 p-2 rounded-lg mb-4">
                     <dt class="mb-2 font-semibold text-lg text-black dark:text-white">Detail Pesanan</dt>
-                        <dd class="mb-4 font-light text-gray-800 sm:mb-1 dark:text-gray-400">{{ $order->product->name }}</dd>
+                        <dd class="mb-4 font-normal text-gray-800 sm:mb-1 dark:text-gray-400">{{ $order->product->name }}</dd>
                         <dd class="mb-4 font-light text-gray-800 sm:mb-3 dark:text-gray-400">{{ \Carbon\Carbon::parse($order->start_date)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($order->end_date)->translatedFormat('d M Y') }}</dd>
                         
                     </div>

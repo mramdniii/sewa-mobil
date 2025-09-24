@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon as SupportCarbon;
 
 class OrderController extends Controller
 {
@@ -96,9 +97,27 @@ class OrderController extends Controller
             'status' => 'required|in:confirmed,canceled',
         ]);
 
-        $order->status = $request->status;
-        $order->save();
+        $startDate = Carbon::parse($order->start_date);
+        $today = Carbon::today();
 
-        return redirect()->back()->with('success', 'Status Pesanan Diperbarui');
+        // Cek jika status adalah 'pending' dan tanggal mulai belum lewat
+        if ($order->status === 'pending') 
+            {
+                if ($startDate->greaterThanOrEqualTo($today)) 
+                {
+                    $order->status = $request->status;
+                    $order->save();
+                    
+                    return redirect()->back()->with('success', 'Status Pesanan Diperbarui');
+                }
+
+                // Jika tanggal mulai sudah lewat, batalkan pesanan
+                elseif ($startDate->lessThan($today)) 
+                {
+                    $order->status = 'canceled';
+                    $order->save();
+                    return redirect()->back()->with('error', 'Tidak dapat memperbarui status pesanan yang sudah lewat.');
+                }
+            }
     }
 }
